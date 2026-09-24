@@ -14,7 +14,7 @@ and re-apply the rows below.
 | 3 | `shadow-xs` removed from form controls | `border-input` (3:1) is the only edge (SG §5.2) |
 | 4 | Overlay content: `rounded-md bg-popover shadow-md ring-1 ring-foreground/10` → `glass-popover rounded-lg shadow-overlay` | Glass recipe with opaque fallbacks (SG §4.6, `src/styles/bento.css`) |
 | 5 | Overlay open/close: `duration-100` → `duration-(--spring-snappy-duration) ease-spring-snappy`, close `duration-100 ease-in` | CSS surfaces share Motion's spring physics through the generated `linear()` easings (SG §6.6) |
-| 6 | `import { cn } from "cn"` kept in untouched files; rewritten files import `@/lib/utils` | Same function |
+| 6 | Every file imports `cn` from `@/lib/utils`, never from the `cn` package (lint-enforced) | The configured instance registers Lumira's font-size, shadow and radius tokens; the bare package treats `text-micro` as a color and drops it next to `text-foreground` |
 
 ## Per-component patches
 

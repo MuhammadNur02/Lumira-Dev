@@ -3,6 +3,7 @@ import type { Route } from 'next'
 import { ArrowRight } from 'lucide-react'
 import { BentoTile, TileEyebrow, TileTitle, type Span } from '../bento'
 import { CodeBlock } from '../code-block'
+import { InlineText } from '../inline-text'
 
 /** docsTeaser (SG §4.4): a server-highlighted snippet with a copy button + a docs link. */
 export function DocsTeaserTile({
@@ -24,7 +25,11 @@ export function DocsTeaserTile({
     <BentoTile span={span} className="gap-4">
       <TileEyebrow>{eyebrow ?? 'Docs'}</TileEyebrow>
       <TileTitle size="sm">{title ?? 'Read the docs'}</TileTitle>
-      {body ? <p className="text-body-sm text-muted-foreground">{body}</p> : null}
+      {body ? (
+        <p className="text-body-sm text-muted-foreground">
+          <InlineText text={body} />
+        </p>
+      ) : null}
       <CodeBlock code={snippet} lang="bash" title="Terminal" />
       <Link
         href={href as Route}

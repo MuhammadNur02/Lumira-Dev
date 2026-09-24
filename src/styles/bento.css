@@ -148,6 +148,19 @@
   background-size: 24px 24px;
 }
 
+/* Quiet dot texture for tiles whose content sits at the bottom (stat tiles): the negative space
+   reads as intentional instead of unfinished. Fades out toward the content so it never competes. */
+@utility tile-dots {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(color-mix(in oklch, var(--foreground) 14%, transparent) 1px, transparent 1px);
+  background-size: 18px 18px;
+  background-position: 9px 9px;
+  mask-image: radial-gradient(90% 75% at 100% 0%, black, transparent 72%);
+}
+
 /* ---------- Border beam (SG §4.7): the All-Access tile only ---------- */
 /* A dedicated element: the tile's ::before (ambient light) and ::after (spotlight) are taken. */
 @property --beam-angle {

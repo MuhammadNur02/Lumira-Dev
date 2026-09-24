@@ -14,6 +14,7 @@ export function StatTile({
 }) {
   return (
     <BentoTile span={span} className="min-h-[132px] justify-between gap-4 md:min-h-0">
+      <span aria-hidden className="tile-dots" />
       {eyebrow ? <TileEyebrow>{eyebrow}</TileEyebrow> : <span />}
       <div className="flex flex-col gap-1">
         <p className="text-metric md:text-metric-hero">{value}</p>

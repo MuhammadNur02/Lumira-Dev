@@ -11,7 +11,7 @@ export function AppHeader({ children }: { children?: React.ReactNode }) {
       className="sticky top-0 z-40 border-b border-border glass-bar"
       style={{ viewTransitionName: 'site-header' }}
     >
-      <div className="mx-auto flex h-14 max-w-[90rem] items-center gap-3 px-4 sm:px-6">
+      <div className="mx-auto flex h-14 max-w-[90rem] items-center gap-3 px-4 sm:px-6 lg:px-8">
         <Link
           prefetch={false}
           href="/"

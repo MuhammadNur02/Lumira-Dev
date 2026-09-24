@@ -27,14 +27,17 @@ export function ChangelogTeaserTile({
           <li key={r._id}>
             <Link
               href={`/changelog#${releaseAnchor(r.product.slug, r.version)}`}
-              className="flex flex-col gap-1 rounded-sm py-3 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+              className="group/release flex flex-col gap-1 rounded-sm py-2.5 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
             >
-              <span className="flex items-center gap-2">
+              {/* Version, product and date share one row so three releases fit a 2-row tile. */}
+              <span className="flex min-w-0 items-center gap-2">
                 <VersionPill version={r.version} />
                 <span className="truncate text-caption text-foreground">{r.product.name}</span>
+                <RelativeTime date={r.releasedAt} className="ml-auto shrink-0 text-micro text-muted-foreground" />
               </span>
-              <span className="line-clamp-1 text-body-sm text-muted-foreground">{r.title}</span>
-              <RelativeTime date={r.releasedAt} className="text-micro text-muted-foreground" />
+              <span className="line-clamp-1 text-body-sm text-muted-foreground transition-colors group-hover/release:text-foreground">
+                {r.title}
+              </span>
             </Link>
           </li>
         ))}

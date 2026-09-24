@@ -101,6 +101,11 @@ export default defineConfig([
             },
             { name: 'framer-motion', message: "Import from 'motion/react' (Motion is the successor)." },
             { name: '@radix-ui/react-slot', message: "Import { Slot } from 'radix-ui' (shadcn 4.x)." },
+            {
+              name: 'cn',
+              message:
+                "Import { cn } from '@/lib/utils'. The bare package does not know Lumira's type scale and drops text-micro/text-caption next to a text color.",
+            },
           ],
         },
       ],

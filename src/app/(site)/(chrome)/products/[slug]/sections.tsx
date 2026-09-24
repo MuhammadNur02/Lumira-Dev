@@ -2,6 +2,7 @@ import Link from 'next/link'
 import type { Route } from 'next'
 import { ArrowRight, BookOpen, Check, Minus } from 'lucide-react'
 import { BentoGrid, BentoTile, TileEyebrow } from '@/components/lumira/bento'
+import { InlineText } from '@/components/lumira/inline-text'
 import { NewBadge, RelativeTime } from '@/components/lumira/relative-time'
 import { StackBadge } from '@/components/lumira/stack-badge'
 import { VersionPill } from '@/components/lumira/version-pill'
@@ -20,18 +21,51 @@ export function SectionTitle({ eyebrow, title, id }: { eyebrow: string; title: s
 
 const FEATURE_SPAN = { lg: { md: 6, lg: 8 }, md: { md: 3, lg: 4 }, sm: { md: 3, lg: 4 } } as const
 
-/** Bento feature grid (FR-SF-07). Sizes come from Sanity; spans are fixed per size. */
+/**
+ * Greedy row justification: when the next tile does not fit the current row, or the grid ends
+ * mid-row, the previous tile widens to close the gap. Editors pick sizes freely in Sanity and the
+ * grid never shows a hole (e.g. [8, 4, 4] on 12 columns becomes [8, 4, 12]). Every result is a sum
+ * of the input spans, so it stays on the 4/8/12 (lg) and 3/6 (md) scales.
+ */
+export function justifyRows(widths: number[], cols: number): number[] {
+  const out = [...widths]
+  let used = 0
+  out.forEach((w, i) => {
+    if (used > 0 && used + w > cols) {
+      out[i - 1]! += cols - used
+      used = 0
+    }
+    used += w
+    if (used === cols) used = 0
+  })
+  if (used > 0) out[out.length - 1]! += cols - used
+  return out
+}
+
+/** Bento feature grid (FR-SF-07). Sizes come from Sanity; rows are justified so none is ragged. */
 export function FeatureGrid({ features }: { features: FeatureTile[] }) {
   if (!features.length) return null
+  const sizes = features.map((f) => FEATURE_SPAN[f.size ?? 'md'])
+  const lg = justifyRows(
+    sizes.map((s) => s.lg),
+    12,
+  )
+  const md = justifyRows(
+    sizes.map((s) => s.md),
+    6,
+  )
   return (
     <BentoGrid className="md:auto-rows-auto lg:grid-cols-12">
-      {features.map((f) => {
-        const s = FEATURE_SPAN[f.size ?? 'md']
+      {features.map((f, i) => {
         return (
-          <BentoTile key={f.title} span={{ md: s.md, lg: s.lg as 4 | 8 }} className="min-h-40 gap-3">
+          <BentoTile key={f.title} span={{ md: md[i] as 3 | 6, lg: lg[i] as 4 | 8 | 12 }} className="min-h-40 gap-3">
             {f.eyebrow ? <TileEyebrow>{f.eyebrow}</TileEyebrow> : null}
             <h3 className="text-heading-4 text-balance">{f.title}</h3>
-            {f.body ? <p className="text-body-sm text-pretty text-muted-foreground">{f.body}</p> : null}
+            {f.body ? (
+              <p className="text-body-sm text-pretty text-muted-foreground">
+                <InlineText text={f.body} />
+              </p>
+            ) : null}
           </BentoTile>
         )
       })}
@@ -60,7 +94,10 @@ export function StackTable({ product }: { product: ProductDetail }) {
       {rows.length ? (
         <div className="overflow-hidden rounded-xl border border-bento-border">
           <table className="w-full text-body-sm tabular-nums">
-            <caption className="sr-only">Tested versions for v{product.latestRelease?.version}</caption>
+            {/* Visible header row: says why this list differs from the stack badges above. */}
+            <caption className="caption-top border-b border-border px-4 py-3 text-left text-caption text-muted-foreground">
+              Tested with v{product.latestRelease?.version}
+            </caption>
             <tbody>
               {rows.map((r) => (
                 <tr key={r.label} className="border-b border-border last:border-0">

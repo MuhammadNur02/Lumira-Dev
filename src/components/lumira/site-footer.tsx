@@ -73,17 +73,21 @@ export async function SiteFooter() {
           </nav>
         ))}
       </div>
-      <div className="mx-auto flex max-w-[80rem] flex-col gap-3 border-t border-border px-4 py-6 text-micro text-muted-foreground sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
-        <p>Payments, tax and invoicing are handled by Lemon Squeezy, our Merchant of Record.</p>
-        <div className="flex items-center gap-4">
-          {settings.social.map((s) => (
-            <a key={s.url} href={s.url} rel="noopener me" className={linkClass}>
-              {s.label}
+      {/* Padding on the outer box, rule on the inner one: the hairline spans exactly the content
+          width, aligned with the columns above instead of running into the gutters. */}
+      <div className="mx-auto max-w-[80rem] px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-3 border-t border-border py-6 text-micro text-muted-foreground md:flex-row md:items-center md:justify-between">
+          <p>Payments, tax and invoicing are handled by Lemon Squeezy, our Merchant of Record.</p>
+          <div className="flex items-center gap-4">
+            {settings.social.map((s) => (
+              <a key={s.url} href={s.url} rel="noopener me" className={linkClass}>
+                {s.label}
+              </a>
+            ))}
+            <a href={`mailto:${settings.supportEmail}`} className={linkClass}>
+              {settings.supportEmail}
             </a>
-          ))}
-          <a href={`mailto:${settings.supportEmail}`} className={linkClass}>
-            {settings.supportEmail}
-          </a>
+          </div>
         </div>
       </div>
     </footer>

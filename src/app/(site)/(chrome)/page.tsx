@@ -93,7 +93,7 @@ export default async function HomePage() {
 
       {/* Hero: text is the LCP candidate, so nothing here animates in (SG §6.4.6). */}
       <section className="hero-glow">
-        <div className="mx-auto flex max-w-[90rem] flex-col gap-6 px-4 pt-16 pb-12 sm:px-6 lg:px-8 lg:pt-24 lg:pb-16">
+        <div className="mx-auto flex max-w-[80rem] flex-col gap-6 px-4 pt-16 pb-12 sm:px-6 lg:px-8 lg:pt-24 lg:pb-16">
           {home.hero?.eyebrow ? <span className="eyebrow">{home.hero.eyebrow}</span> : null}
           <h1 className="max-w-[16ch] text-display-2xl text-balance">
             {home.hero?.title ?? 'Ship on foundations you can trust.'}
@@ -101,7 +101,8 @@ export default async function HomePage() {
           {home.hero?.lead ? (
             <p className="max-w-[45rem] text-body-lg text-pretty text-muted-foreground">{home.hero.lead}</p>
           ) : null}
-          <div className="flex flex-wrap gap-3">
+          {/* Phones: two equal full-width buttons (ragged stacked widths read as unfinished). */}
+          <div className="grid grid-cols-1 gap-3 sm:flex sm:flex-wrap">
             <Button size="lg" asChild>
               <Link href="/templates" transitionTypes={['nav-forward']}>
                 Browse the catalog

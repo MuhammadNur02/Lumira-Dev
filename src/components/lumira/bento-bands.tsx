@@ -59,10 +59,37 @@ export function fallbackBands(bands: BandDoc[]): BandDoc[] {
   return out
 }
 
-function spanFor(preset: Preset, index: number, tile: Pick<TileDoc, 'kind' | 'cols'>, rows: 1 | 2 | 3): Span {
+/**
+ * Mobile (4-col) widths: stat tiles pair up two-by-two in half-width rows. A run of consecutive
+ * stat tiles with an odd count gives its last tile the full width, so a stat never sits alone
+ * beside an empty half row (e.g. a lone "Catalog" stat between two full-width tiles).
+ */
+export function mobileBases(tiles: Pick<TileDoc, 'kind' | 'stack'>[]): (2 | 4)[] {
+  const bases: (2 | 4)[] = tiles.map(() => 4)
+  let run: number[] = []
+  const flush = () => {
+    const paired = run.length - (run.length % 2)
+    run.forEach((idx, j) => (bases[idx] = j < paired ? 2 : 4))
+    run = []
+  }
+  tiles.forEach((tile, i) => {
+    if (tile.kind === 'stat' && !tile.stack?.length) run.push(i)
+    else flush()
+  })
+  flush()
+  return bases
+}
+
+function spanFor(
+  preset: Preset,
+  index: number,
+  tile: Pick<TileDoc, 'kind' | 'cols'>,
+  rows: 1 | 2 | 3,
+  base: 2 | 4 = 4,
+): Span {
   const md = TABLET_SPANS[preset]?.[index]
   return {
-    base: tile.kind === 'stat' ? 2 : 4,
+    base,
     md: (md && MD.has(md) ? md : 6) as Span['md'],
     lg: (LG.has(tile.cols) ? tile.cols : 12) as Span['lg'],
     rows,
@@ -160,33 +187,36 @@ export function BentoBands({ bands, ...ctx }: { bands: BandDoc[] } & Context) {
   const lcpKey = render.flatMap((b) => b.tiles).find((t) => t.kind === 'featuredProduct' && t.product)?._key
   return (
     <div className="flex flex-col gap-(--bento-gap)">
-      {render.map((band) => (
-        <BentoGrid key={band._key} data-preset={band.preset}>
-          {band.tiles.map((tile, i) => {
-            const span = spanFor(band.preset, i, tile, band.rows)
-            if (tile.stack?.length) {
-              return (
-                <div
-                  key={tile._key}
-                  className={cn(
-                    'col-span-4 flex flex-col gap-(--bento-gap) [&>*]:flex-1',
-                    span.md && MD_COLS[span.md],
-                    LG_COLS[span.lg],
-                    ROWS[band.rows],
-                  )}
-                >
-                  {tile.stack.map((child) => (
-                    <div key={child._key} className="contents">
-                      {renderTile(child, { base: 4, lg: 12 }, ctx, false)}
-                    </div>
-                  ))}
-                </div>
-              )
-            }
-            return <Slot key={tile._key}>{renderTile(tile, span, ctx, tile._key === lcpKey)}</Slot>
-          })}
-        </BentoGrid>
-      ))}
+      {render.map((band) => {
+        const bases = mobileBases(band.tiles)
+        return (
+          <BentoGrid key={band._key} data-preset={band.preset}>
+            {band.tiles.map((tile, i) => {
+              const span = spanFor(band.preset, i, tile, band.rows, bases[i])
+              if (tile.stack?.length) {
+                return (
+                  <div
+                    key={tile._key}
+                    className={cn(
+                      'col-span-4 flex flex-col gap-(--bento-gap) [&>*]:flex-1',
+                      span.md && MD_COLS[span.md],
+                      LG_COLS[span.lg],
+                      ROWS[band.rows],
+                    )}
+                  >
+                    {tile.stack.map((child) => (
+                      <div key={child._key} className="contents">
+                        {renderTile(child, { base: 4, lg: 12 }, ctx, false)}
+                      </div>
+                    ))}
+                  </div>
+                )
+              }
+              return <Slot key={tile._key}>{renderTile(tile, span, ctx, tile._key === lcpKey)}</Slot>
+            })}
+          </BentoGrid>
+        )
+      })}
     </div>
   )
 }

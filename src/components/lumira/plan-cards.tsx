@@ -68,7 +68,8 @@ export function PlanCards({
             <div className="flex items-center justify-between">
               <h3 className="text-heading-4">{plan.title}</h3>
               {featured && savings && savings > 0 ? (
-                <span className="rounded-full bg-brand-foreground/15 px-2.5 py-0.5 text-micro">Best value</span>
+                // Inverted pill: brand text on white clears 4.5:1 at 12 px (white on a 15 % tint did not).
+                <span className="rounded-full bg-brand-foreground px-2.5 py-0.5 text-micro text-brand">Best value</span>
               ) : null}
             </div>
             <p className="flex items-baseline gap-1">
