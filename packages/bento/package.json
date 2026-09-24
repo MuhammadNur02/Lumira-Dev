@@ -1,0 +1,10 @@
+{
+  "name": "@lumira/bento",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Bento Grid 2.0 composition rules (StyleGuide §4.3), shared by the app and Sanity Studio.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

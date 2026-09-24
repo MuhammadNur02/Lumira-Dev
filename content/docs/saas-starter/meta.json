@@ -1,0 +1,15 @@
+{
+  "title": "SaaS Starter",
+  "root": true,
+  "pages": [
+    "index",
+    "installation",
+    "environment",
+    "activation",
+    "structure",
+    "deployment",
+    "upgrading",
+    "troubleshooting",
+    "faq"
+  ]
+}

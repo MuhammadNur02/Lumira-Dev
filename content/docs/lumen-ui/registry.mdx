@@ -1,0 +1,49 @@
+---
+title: Registry install
+description: Add the license-gated @lumira registry to components.json and install blocks with the shadcn CLI.
+product: lumen-ui
+since: 1.0.0
+---
+
+<Steps>
+<Step>
+
+### Add the registry
+
+Add `@lumira` to the `registries` section of your `components.json`:
+
+```json title="components.json"
+{
+  "registries": {
+    "@lumira": {
+      "url": "https://lumira.dev/r/{name}.json",
+      "headers": { "Authorization": "Bearer ${LUMIRA_LICENSE_KEY}" }
+    }
+  }
+}
+```
+
+</Step>
+<Step>
+
+### Provide your key
+
+Put your license key in `.env.local` (never commit it):
+
+<LicenseSnippet kind="env" product="lumen-ui" />
+
+</Step>
+<Step>
+
+### Install a block
+
+```bash
+npx shadcn@latest add @lumira/hero-01
+```
+
+</Step>
+</Steps>
+
+<Callout type="warn">
+  A key from another store returns `401`; a valid key that does not cover a component returns `403` with the reason.
+</Callout>

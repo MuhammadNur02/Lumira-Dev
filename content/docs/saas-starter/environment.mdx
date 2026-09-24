@@ -1,0 +1,29 @@
+---
+title: Environment variables
+description: Every variable SaaS Starter reads, validated at boot.
+product: saas-starter
+since: 2.0.0
+---
+
+Copy `.env.example` to `.env.local`. The app validates every variable at boot and fails with a readable message when one is missing.
+
+<TypeTable
+  type={{
+    DATABASE_URL: { type: 'string', description: 'PostgreSQL connection string (pooled).', required: true },
+    AUTH_SECRET: {
+      type: 'string',
+      description: '32+ random bytes, base64. Generate with openssl rand -base64 32.',
+      required: true,
+    },
+    BILLING_API_KEY: { type: 'string', description: 'Your payment provider API key.', required: true },
+    BILLING_WEBHOOK_SECRET: {
+      type: 'string',
+      description: 'Signing secret used to verify billing webhooks.',
+      required: true,
+    },
+    EMAIL_FROM: { type: 'string', description: 'Sender for transactional email, for example App <hello@example.com>.' },
+    LUMIRA_LICENSE_KEY: { type: 'string', description: 'Only needed in CI for npx lumira status.' },
+  }}
+/>
+
+<LicenseSnippet kind="env" product="saas-starter" />

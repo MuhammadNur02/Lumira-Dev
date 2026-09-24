@@ -1,0 +1,16 @@
+{
+  "name": "@lumira/preview-bridge",
+  "version": "1.0.0",
+  "description": "postMessage bridge between Lumira's Live Preview player and framed demos (StyleGuide §7.8).",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts",
+    "./protocol": "./src/protocol.ts",
+    "./host": "./src/host.ts",
+    "./demo": "./src/demo.ts"
+  },
+  "peerDependencies": {
+    "zod": "^4"
+  }
+}

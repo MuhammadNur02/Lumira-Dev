@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="Docsmith placeholder art">
+<defs>
+  <radialGradient id="g" cx="50%" cy="0%" r="75%"><stop offset="0" stop-color="#6d74f5" stop-opacity="0.35"/><stop offset="1" stop-color="#06070a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0.08"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+</defs>
+<rect width="1600" height="1000" fill="#06070a"/>
+<rect width="1600" height="1000" fill="url(#g)"/>
+<rect x="180" y="140" width="1240" height="760" rx="28" fill="#0d0e12" stroke="#1f2126" stroke-width="2"/>
+<rect x="180" y="140" width="1240" height="760" rx="28" fill="url(#edge)" />
+<circle cx="226" cy="190" r="7" fill="#1f2126"/><circle cx="252" cy="190" r="7" fill="#1f2126"/><circle cx="278" cy="190" r="7" fill="#1f2126"/>
+<rect x="640" y="178" width="320" height="24" rx="12" fill="#191c21" />
+<text x="800" y="195" text-anchor="middle" font-family="Geist Mono, ui-monospace, monospace" font-size="13" fill="#a1a5ac">docsmith.lumira-demos.dev</text>
+<rect x="220" y="250" width="240" height="560" rx="16" fill="#191c21" /><rect x="248" y="286" width="150" height="10" rx="5" fill="#a1a5ac" opacity="0.4"/><rect x="248" y="326" width="120" height="10" rx="5" fill="#a1a5ac" opacity="0.4"/><rect x="248" y="366" width="90" height="10" rx="5" fill="#a1a5ac" opacity="0.95"/><rect x="248" y="406" width="150" height="10" rx="5" fill="#a1a5ac" opacity="0.4"/><rect x="248" y="446" width="120" height="10" rx="5" fill="#a1a5ac" opacity="0.4"/><rect x="248" y="486" width="90" height="10" rx="5" fill="#a1a5ac" opacity="0.4"/><rect x="248" y="526" width="150" height="10" rx="5" fill="#a1a5ac" opacity="0.4"/><text x="510" y="310" font-family="Geist, Inter, system-ui, sans-serif" font-size="46" font-weight="600" fill="#f9fafc">Getting started</text><rect x="510" y="350" width="620" height="10" rx="5" fill="#a1a5ac" opacity="0.4"/><rect x="510" y="378" width="530" height="10" rx="5" fill="#a1a5ac" opacity="0.4"/><rect x="510" y="406" width="440" height="10" rx="5" fill="#a1a5ac" opacity="0.4"/><rect x="510" y="460" width="870" height="200" rx="16" fill="#0d0e12" stroke="#1f2126" stroke-width="2"/><rect x="540" y="495" width="260" height="12" rx="6" fill="#a1a5ac" opacity="0.45"/><rect x="540" y="531" width="357" height="12" rx="6" fill="#6d74f5" opacity="0.9"/><rect x="540" y="567" width="454" height="12" rx="6" fill="#a1a5ac" opacity="0.45"/><rect x="540" y="603" width="551" height="12" rx="6" fill="#a1a5ac" opacity="0.45"/>
+</svg>

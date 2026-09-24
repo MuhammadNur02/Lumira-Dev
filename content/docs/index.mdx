@@ -1,0 +1,27 @@
+---
+title: Lumira documentation
+description: Install, activate, customize and deploy every Lumira boilerplate, UI kit and template.
+product: lumira
+---
+
+Every product has its own section with a getting-started guide, configuration reference and upgrade notes.
+Pages marked **Licensed** show their full content to owners once you sign in.
+
+<Cards>
+  <Card title="SaaS Starter" href="/docs/saas-starter" description="Auth, billing and multi-tenancy on Next.js 16." />
+  <Card title="Lumen UI" href="/docs/lumen-ui" description="Install blocks from the license-gated shadcn registry." />
+  <Card title="Motion Primitives" href="/docs/motion-primitives" description="Spring-physics interaction components." />
+  <Card title="Folio" href="/docs/folio" description="Portfolio template with MDX case studies." />
+  <Card title="Launchpad" href="/docs/launchpad" description="Launch page with waitlist and pricing." />
+  <Card title="Docsmith" href="/docs/docsmith" description="Documentation site on Fumadocs." />
+</Cards>
+
+## Verifying a download
+
+Every release in your Library lists its size and SHA-256 checksum (FR-DL-07). Compare it with your local file:
+
+```bash
+shasum -a 256 saas-starter-2.3.1.zip
+```
+
+On Windows PowerShell, use `Get-FileHash .\saas-starter-2.3.1.zip -Algorithm SHA256`.

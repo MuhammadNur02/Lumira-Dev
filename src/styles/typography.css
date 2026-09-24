@@ -1,0 +1,84 @@
+/* src/styles/typography.css — imported by globals.css */
+@theme {
+  --text-display-2xl: clamp(3.5rem, 2.62rem + 3.76vw, 6rem);
+  --text-display-2xl--line-height: 0.96;
+  --text-display-2xl--letter-spacing: -0.045em;
+  --text-display-2xl--font-weight: 600;
+
+  --text-display-xl: clamp(2.75rem, 2.13rem + 2.63vw, 4.5rem);
+  --text-display-xl--line-height: 1;
+  --text-display-xl--letter-spacing: -0.04em;
+  --text-display-xl--font-weight: 600;
+
+  --text-display-lg: clamp(2.25rem, 1.81rem + 1.88vw, 3.5rem);
+  --text-display-lg--line-height: 1.05;
+  --text-display-lg--letter-spacing: -0.035em;
+  --text-display-lg--font-weight: 600;
+
+  --text-heading-1: 2.25rem;
+  --text-heading-1--line-height: 1.1;
+  --text-heading-1--letter-spacing: -0.03em;
+  --text-heading-1--font-weight: 600;
+  --text-heading-2: 1.75rem;
+  --text-heading-2--line-height: 1.15;
+  --text-heading-2--letter-spacing: -0.025em;
+  --text-heading-2--font-weight: 600;
+  --text-heading-3: 1.375rem;
+  --text-heading-3--line-height: 1.25;
+  --text-heading-3--letter-spacing: -0.02em;
+  --text-heading-3--font-weight: 600;
+  --text-heading-4: 1.125rem;
+  --text-heading-4--line-height: 1.35;
+  --text-heading-4--letter-spacing: -0.012em;
+  --text-heading-4--font-weight: 600;
+
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.6;
+  --text-body-lg--letter-spacing: -0.011em;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-body--letter-spacing: -0.006em;
+  --text-body-sm: 0.875rem;
+  --text-body-sm--line-height: 1.5;
+  --text-body-sm--letter-spacing: -0.003em;
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.45;
+  --text-caption--font-weight: 500;
+  --text-micro: 0.75rem;
+  --text-micro--line-height: 1.35;
+  --text-micro--letter-spacing: 0.01em;
+  --text-micro--font-weight: 500;
+
+  --text-key: 0.9375rem;
+  --text-key--line-height: 1.5;
+  --text-key--letter-spacing: 0.02em;
+  --text-key--font-weight: 500;
+  --text-metric: 1.75rem;
+  --text-metric--line-height: 1.1;
+  --text-metric--letter-spacing: -0.02em;
+  --text-metric--font-weight: 600;
+  --text-metric-hero: 3rem;
+  --text-metric-hero--line-height: 1;
+  --text-metric-hero--letter-spacing: -0.03em;
+  --text-metric-hero--font-weight: 600;
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+@utility license-key {
+  font-family: var(--font-mono);
+  font-size: var(--text-key);
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums slashed-zero;
+  font-variant-ligatures: none;
+  word-break: break-all;
+  user-select: all;
+}

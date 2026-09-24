@@ -1,0 +1,9 @@
+# Hand-aligned token tables and generated output
+src/app/globals.css
+src/styles/springs.css
+src/db/migrations/
+src/sanity/types.ts
+pnpm-lock.yaml
+*.md
+.next/
+coverage/

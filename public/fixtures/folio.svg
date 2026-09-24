@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="Folio placeholder art">
+<defs>
+  <radialGradient id="g" cx="50%" cy="0%" r="75%"><stop offset="0" stop-color="#c07cf2" stop-opacity="0.35"/><stop offset="1" stop-color="#06070a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0.08"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+</defs>
+<rect width="1600" height="1000" fill="#06070a"/>
+<rect width="1600" height="1000" fill="url(#g)"/>
+<rect x="180" y="140" width="1240" height="760" rx="28" fill="#0d0e12" stroke="#1f2126" stroke-width="2"/>
+<rect x="180" y="140" width="1240" height="760" rx="28" fill="url(#edge)" />
+<circle cx="226" cy="190" r="7" fill="#1f2126"/><circle cx="252" cy="190" r="7" fill="#1f2126"/><circle cx="278" cy="190" r="7" fill="#1f2126"/>
+<rect x="640" y="178" width="320" height="24" rx="12" fill="#191c21" />
+<text x="800" y="195" text-anchor="middle" font-family="Geist Mono, ui-monospace, monospace" font-size="13" fill="#a1a5ac">folio.lumira-demos.dev</text>
+<text x="220" y="340" font-family="Geist, Inter, system-ui, sans-serif" font-size="84" font-weight="600" fill="#f9fafc" letter-spacing="-3">Selected work</text><rect x="220" y="410" width="370" height="400" rx="20" fill="#191c21" /><rect x="615" y="410" width="370" height="400" rx="20" fill="#c07cf2" opacity="0.8"/><rect x="1010" y="410" width="370" height="400" rx="20" fill="#191c21" />
+</svg>

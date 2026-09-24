@@ -1,0 +1,88 @@
+/* Keep the page clickable while snapshots animate */
+::view-transition {
+  pointer-events: none;
+}
+
+/* Shared-element morph driven by the `smooth` spring (generated linear(), §6.6) */
+::view-transition-group(.morph) {
+  animation-duration: var(--spring-smooth-duration);
+  animation-timing-function: var(--spring-smooth);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: vt-via-blur;
+}
+@keyframes vt-via-blur {
+  30% {
+    filter: blur(3px);
+  }
+}
+
+/* Directional slides: quick exit, spring entrance */
+::view-transition-old(.nav-forward) {
+  --slide-offset: -48px;
+  animation:
+    150ms cubic-bezier(0.4, 0, 1, 1) both vt-fade reverse,
+    var(--spring-smooth-duration) var(--spring-smooth) both vt-slide reverse;
+}
+::view-transition-new(.nav-forward) {
+  --slide-offset: 48px;
+  animation:
+    210ms ease-out 90ms both vt-fade,
+    var(--spring-smooth-duration) var(--spring-smooth) both vt-slide;
+}
+::view-transition-old(.nav-back) {
+  --slide-offset: 48px;
+  animation:
+    150ms cubic-bezier(0.4, 0, 1, 1) both vt-fade reverse,
+    var(--spring-smooth-duration) var(--spring-smooth) both vt-slide reverse;
+}
+::view-transition-new(.nav-back) {
+  --slide-offset: -48px;
+  animation:
+    210ms ease-out 90ms both vt-fade,
+    var(--spring-smooth-duration) var(--spring-smooth) both vt-slide;
+}
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes vt-slide {
+  from {
+    translate: var(--slide-offset) 0;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+/* Anchored header */
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+
+/* Theme switch (§6.5.6): no crossfade on the root while revealing */
+html[data-theme-transition]::view-transition-old(root),
+html[data-theme-transition]::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}

@@ -1,0 +1,31 @@
+---
+title: Activating your license
+description: Activate each project with the Lumira CLI and manage activations from your Library.
+product: saas-starter
+since: 2.0.0
+---
+
+Each activation corresponds to one project. Personal licenses include 1 activation, Team 5 and Extended 25.
+
+```bash
+npx lumira@latest activate
+```
+
+The CLI asks for your license key and a name for the activation, then writes `.lumira/license.json` with the instance ID.
+The key itself is never stored in your project, and `.lumira/` is added to `.gitignore` for you.
+
+<LicenseSnippet kind="cli" product="saas-starter" />
+
+## Check or free an activation
+
+```bash
+npx lumira@latest status      # validates the stored instance
+npx lumira@latest deactivate  # frees this project's slot
+```
+
+You can also deactivate any instance from [Licenses](/account/licenses) in your Library.
+When a key reaches its limit, the CLI prints the link to manage activations.
+
+## Non-interactive use (CI)
+
+Set `LUMIRA_LICENSE_KEY` in the environment and the CLI skips the prompt.

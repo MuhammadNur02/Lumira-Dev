@@ -1,0 +1,28 @@
+---
+title: Project structure
+description: Where every part of SaaS Starter lives and how the layers depend on each other.
+product: saas-starter
+access: licensed
+since: 2.0.0
+---
+
+<Files>
+  <Folder name="src" defaultOpen>
+    <Folder name="app" />
+    <Folder name="components" />
+    <Folder name="db" />
+    <Folder name="emails" />
+    <Folder name="lib" />
+    <Folder name="server" />
+  </Folder>
+  <File name="drizzle.config.ts" />
+  <File name="next.config.ts" />
+</Files>
+
+`src/server` holds domain services that pages and Server Actions call; nothing in `src/components` imports the database.
+Every admin mutation goes through `withAudit()`, which writes an append-only audit entry.
+
+## Data flow
+
+Pages read through cached server functions tagged per entity. Mutations run in Server Actions, update the database in one
+transaction, write side effects to an outbox table and call `updateTag()` so the next render reads fresh data.

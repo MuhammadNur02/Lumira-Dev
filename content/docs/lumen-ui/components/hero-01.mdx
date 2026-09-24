@@ -1,0 +1,20 @@
+---
+title: Hero 01
+description: Split hero with a headline, lead, primary action and product shot.
+product: lumen-ui
+since: 1.0.0
+---
+
+```bash
+npx shadcn@latest add @lumira/hero-01
+```
+
+<TypeTable
+  type={{
+    title: { type: 'ReactNode', description: 'Headline. Keep it under ten words.', required: true },
+    lead: { type: 'ReactNode', description: 'One or two sentences under the headline.' },
+    action: { type: '{ label: string; href: string }', description: 'Primary call to action.' },
+    media: { type: 'ReactNode', description: 'Product shot rendered in the right column.' },
+    align: { type: "'start' | 'center'", description: 'Text alignment below the md breakpoint.', default: "'start'" },
+  }}
+/>

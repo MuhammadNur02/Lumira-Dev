@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="Motion Primitives placeholder art">
+<defs>
+  <radialGradient id="g" cx="50%" cy="0%" r="75%"><stop offset="0" stop-color="#4f8ef7" stop-opacity="0.35"/><stop offset="1" stop-color="#06070a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0.08"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+</defs>
+<rect width="1600" height="1000" fill="#06070a"/>
+<rect width="1600" height="1000" fill="url(#g)"/>
+<rect x="180" y="140" width="1240" height="760" rx="28" fill="#0d0e12" stroke="#1f2126" stroke-width="2"/>
+<rect x="180" y="140" width="1240" height="760" rx="28" fill="url(#edge)" />
+<circle cx="226" cy="190" r="7" fill="#1f2126"/><circle cx="252" cy="190" r="7" fill="#1f2126"/><circle cx="278" cy="190" r="7" fill="#1f2126"/>
+<rect x="640" y="178" width="320" height="24" rx="12" fill="#191c21" />
+<text x="800" y="195" text-anchor="middle" font-family="Geist Mono, ui-monospace, monospace" font-size="13" fill="#a1a5ac">motion-primitives.lumira-demos.dev</text>
+<rect x="220" y="250" width="1160" height="560" rx="20" fill="#191c21" /><circle cx="380" cy="530" r="38" fill="#4f8ef7" opacity="0.35"/><circle cx="590" cy="605.7323886327107" r="44" fill="#4f8ef7" opacity="0.48"/><circle cx="800" cy="611.8367684143113" r="50" fill="#4f8ef7" opacity="0.61"/><circle cx="1010" cy="542.700800725388" r="56" fill="#4f8ef7" opacity="0.74"/><circle cx="1220" cy="461.8877754222865" r="62" fill="#4f8ef7" opacity="0.87"/><path d="M 340 670 C 620 330, 920 770, 1260 410" fill="none" stroke="#a1a5ac" stroke-width="3" stroke-dasharray="10 12" opacity="0.6"/>
+</svg>

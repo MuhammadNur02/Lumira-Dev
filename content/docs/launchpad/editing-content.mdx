@@ -1,0 +1,12 @@
+---
+title: Editing content
+description: Where Launchpad's content lives and how to change it without touching components.
+product: launchpad
+since: 1.0.0
+---
+
+Launchpad keeps content separate from layout: typed message files per locale. Change the text and media there and the pages update on the next build.
+
+- Images go in `public/` or a remote host allowed in `next.config.ts`; always set `alt` text.
+- Colors, radii and fonts come from the CSS variables in `app/globals.css`.
+- Dark mode is designed, not inverted: check both themes after changing a color.

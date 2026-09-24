@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="SaaS Starter placeholder art">
+<defs>
+  <radialGradient id="g" cx="50%" cy="0%" r="75%"><stop offset="0" stop-color="#5856e9" stop-opacity="0.35"/><stop offset="1" stop-color="#06070a" stop-opacity="0"/></radialGradient>
+  <linearGradient id="edge" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0.08"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+</defs>
+<rect width="1600" height="1000" fill="#06070a"/>
+<rect width="1600" height="1000" fill="url(#g)"/>
+<rect x="180" y="140" width="1240" height="760" rx="28" fill="#0d0e12" stroke="#1f2126" stroke-width="2"/>
+<rect x="180" y="140" width="1240" height="760" rx="28" fill="url(#edge)" />
+<circle cx="226" cy="190" r="7" fill="#1f2126"/><circle cx="252" cy="190" r="7" fill="#1f2126"/><circle cx="278" cy="190" r="7" fill="#1f2126"/>
+<rect x="640" y="178" width="320" height="24" rx="12" fill="#191c21" />
+<text x="800" y="195" text-anchor="middle" font-family="Geist Mono, ui-monospace, monospace" font-size="13" fill="#a1a5ac">saas-starter.lumira-demos.dev</text>
+<rect x="220" y="250" width="220" height="560" rx="16" fill="#191c21" /><rect x="248" y="290" width="140" height="10" rx="5" fill="#a1a5ac" opacity="0.9"/><rect x="248" y="334" width="128" height="10" rx="5" fill="#a1a5ac" opacity="0.4"/><rect x="248" y="378" width="116" height="10" rx="5" fill="#a1a5ac" opacity="0.4"/><rect x="248" y="422" width="104" height="10" rx="5" fill="#a1a5ac" opacity="0.4"/><rect x="248" y="466" width="92" height="10" rx="5" fill="#a1a5ac" opacity="0.4"/><rect x="470" y="250" width="285" height="150" rx="16" fill="#191c21" /><rect x="775" y="250" width="285" height="150" rx="16" fill="#191c21" /><rect x="1080" y="250" width="285" height="150" rx="16" fill="#191c21" /><rect x="498" y="286" width="90" height="10" rx="5" fill="#a1a5ac" opacity="0.5"/><rect x="498" y="326" width="150" height="34" rx="8" fill="#f9fafc" opacity="0.85"/><rect x="803" y="286" width="90" height="10" rx="5" fill="#a1a5ac" opacity="0.5"/><rect x="803" y="326" width="150" height="34" rx="8" fill="#f9fafc" opacity="0.85"/><rect x="1108" y="286" width="90" height="10" rx="5" fill="#a1a5ac" opacity="0.5"/><rect x="1108" y="326" width="150" height="34" rx="8" fill="#f9fafc" opacity="0.85"/><rect x="470" y="426" width="915" height="384" rx="16" fill="#191c21" /><polyline fill="none" stroke="#5856e9" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" points="510,690 602,640 694,660 786,580 878,600 970,530 1062,550 1154,480 1246,500 1338,440"/>
+</svg>

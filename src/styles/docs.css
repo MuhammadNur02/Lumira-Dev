@@ -1,0 +1,51 @@
+/* Fumadocs → Lumira token mapping (StyleGuide §5.9). Same specificity as Fumadocs' defaults and later
+   in the cascade, so it wins in both themes. Imported by globals.css right after the Fumadocs preset:
+   the preset uses @theme/@plugin and must share the single Tailwind entry point. */
+:root,
+.dark {
+  --color-fd-background: var(--background);
+  --color-fd-foreground: var(--foreground);
+  --color-fd-card: var(--card);
+  --color-fd-card-foreground: var(--card-foreground);
+  --color-fd-popover: var(--popover);
+  --color-fd-popover-foreground: var(--popover-foreground);
+  --color-fd-muted: var(--muted);
+  --color-fd-muted-foreground: var(--muted-foreground);
+  --color-fd-secondary: var(--secondary);
+  --color-fd-secondary-foreground: var(--secondary-foreground);
+  --color-fd-accent: var(--accent);
+  --color-fd-accent-foreground: var(--accent-foreground);
+  --color-fd-border: var(--border);
+  --color-fd-ring: var(--ring);
+  --color-fd-primary: var(--brand-text);
+  --color-fd-primary-foreground: var(--brand-foreground);
+  --color-fd-overlay: color-mix(in oklch, black 40%, transparent);
+}
+.dark #nd-sidebar {
+  --color-fd-muted: var(--muted);
+  --color-fd-secondary: var(--secondary);
+  --color-fd-muted-foreground: var(--muted-foreground);
+}
+
+/* Docs prose: body token at a 45 rem measure; code blocks rounded-lg, mono 14/1.7 (SG §5.9). */
+#nd-page .prose {
+  --tw-prose-body: var(--foreground);
+  --tw-prose-links: var(--brand-text);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+#nd-page .prose :where(pre) {
+  border-radius: var(--radius-lg);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+#nd-page .prose :where(a) {
+  text-underline-offset: 4px;
+}
+
+/* Active sidebar item: the same 2 px brand bar as the account sidebar. */
+#nd-sidebar a[data-active='true']::before {
+  background-color: var(--brand);
+  width: 2px;
+}

@@ -1,0 +1,21 @@
+---
+title: Upgrading
+description: Move between versions safely, including major upgrades with breaking changes.
+product: saas-starter
+access: licensed
+since: 2.0.0
+---
+
+Read the [changelog](/products/saas-starter/changelog) for every version between yours and the target.
+Major releases include an upgrade guide; breaking changes are listed first.
+
+## From 1.x to 2.0
+
+- Rename `middleware.ts` to `proxy.ts` and move authorization checks into each page and Server Action.
+- Replace `unstable_cache` with `"use cache"` functions and add `cacheTag()` to every CMS query.
+- Enable the React Compiler in `next.config.ts` and remove manual `useMemo` calls it now handles.
+
+## Minor and patch releases
+
+Minor releases never break public APIs. Diff your project against the new release, or cherry-pick the files listed in the
+release notes.

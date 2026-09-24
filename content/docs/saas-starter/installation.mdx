@@ -1,0 +1,42 @@
+---
+title: Installation
+description: Unpack the release, install dependencies and run the development server.
+product: saas-starter
+since: 2.0.0
+---
+
+<Tabs items={['pnpm', 'npm', 'bun']}>
+<Tab value="pnpm">
+
+```bash
+unzip saas-starter-2.3.1.zip -d my-app && cd my-app
+pnpm install
+pnpm dev
+```
+
+</Tab>
+<Tab value="npm">
+
+```bash
+unzip saas-starter-2.3.1.zip -d my-app && cd my-app
+npm install
+npm run dev
+```
+
+</Tab>
+<Tab value="bun">
+
+```bash
+unzip saas-starter-2.3.1.zip -d my-app && cd my-app
+bun install
+bun dev
+```
+
+</Tab>
+</Tabs>
+
+The app starts on `http://localhost:3000`. In development, the first run applies database migrations automatically.
+
+<Callout type="warn">
+  Keep the project outside synced folders such as OneDrive or Dropbox; they break `node_modules` with permission errors.
+</Callout>

@@ -1,0 +1,22 @@
+---
+title: Troubleshooting
+description: Fixes for the problems buyers hit most often.
+product: saas-starter
+since: 2.0.0
+---
+
+## `EPERM` errors on Windows
+
+Move the project out of OneDrive or Dropbox, delete `node_modules` and `.next`, and reinstall.
+
+## "Activation limit reached"
+
+Free an activation from [Licenses](/account/licenses) or run `npx lumira@latest deactivate` in a project you no longer use.
+
+## Webhooks return 401
+
+The signing secret in your provider's dashboard must match `BILLING_WEBHOOK_SECRET` exactly.
+
+## My download link expired
+
+Email links work for 72 hours and up to 5 downloads. After that, download any version from your [Library](/account/library).

@@ -1,0 +1,5 @@
+{
+  "title": "Docsmith",
+  "root": true,
+  "pages": ["index", "editing-content", "deploy"]
+}

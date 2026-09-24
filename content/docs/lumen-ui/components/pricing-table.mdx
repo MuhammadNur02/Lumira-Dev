@@ -1,0 +1,29 @@
+---
+title: Pricing table
+description: Three pricing tiers with a monthly/yearly toggle and a highlighted plan.
+product: lumen-ui
+access: licensed
+since: 1.2.0
+---
+
+```bash
+npx shadcn@latest add @lumira/pricing-table
+```
+
+<TypeTable
+  type={{
+    plans: { type: 'Plan[]', description: 'Up to four plans, rendered left to right.', required: true },
+    highlighted: { type: 'string', description: 'Id of the plan that gets the brand fill.' },
+    defaultInterval: {
+      type: "'month' | 'year'",
+      description: 'Initially selected billing interval.',
+      default: "'month'",
+    },
+    onSelect: {
+      type: '(planId: string, interval: string) => void',
+      description: 'Called when a plan button is pressed.',
+    },
+  }}
+/>
+
+The toggle is a segmented control with a `layoutId` indicator and full keyboard support.

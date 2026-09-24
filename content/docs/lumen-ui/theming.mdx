@@ -1,0 +1,26 @@
+---
+title: Theming
+description: Blocks read your shadcn CSS variables, so your tokens drive every color, radius and font.
+product: lumen-ui
+since: 1.0.0
+---
+
+Lumen UI never hard-codes colors. Each block uses the shadcn semantic tokens (`--background`, `--foreground`, `--primary`,
+`--muted`, `--border`, `--ring`) plus two optional tokens:
+
+<TypeTable
+  type={{
+    '--brand': {
+      type: 'color',
+      description: 'Fill for the single highlighted element per block.',
+      default: 'var(--primary)',
+    },
+    '--glow': {
+      type: 'color',
+      description: 'Hero light blooms. Use a low-alpha tint of your brand color.',
+      default: 'transparent',
+    },
+  }}
+/>
+
+Dark mode follows the `.dark` class on `<html>`, so it works with `next-themes` out of the box.

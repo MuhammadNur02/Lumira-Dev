@@ -1,3 +1,23 @@
+packages:
+  - .
+  - studio
+  - packages/*
+
+# The Next.js app lives at the workspace root (Task.md §0.4), so `pnpm add` must target it directly.
+ignoreWorkspaceRootCheck: true
+
+# Install scripts are opt-in (pnpm 10+). Only esbuild's binary check is allowed; the others ship
+# prebuilt binaries, are optional `ws` accelerators, or only print telemetry/funding notices.
+# Git hooks are installed by the `prepare` script.
 allowBuilds:
+  '@clerk/shared': false
+  '@parcel/watcher': false
+  '@sentry/cli': true # downloads the CLI used to upload source maps at build time
+  bufferutil: false
+  core-js: false
+  esbuild: true
+  msw: false
   sharp: false
+  simple-git-hooks: false
   unrs-resolver: false
+  utf-8-validate: false

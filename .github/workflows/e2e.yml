@@ -1,0 +1,49 @@
+name: E2E & Lighthouse
+
+# Runs against each successful Vercel preview deployment (Vercel posts deployment_status events).
+on:
+  deployment_status:
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    if: github.event.deployment_status.state == 'success'
+    name: Playwright + axe
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PLAYWRIGHT_BASE_URL: ${{ github.event.deployment_status.environment_url }}
+      VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+      E2E_COMMERCE: ${{ github.event.deployment_status.environment == 'staging' && '1' || '' }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7
+
+  lighthouse:
+    if: github.event.deployment_status.state == 'success'
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+      - run: npx --yes @lhci/cli@0.15.x autorun --collect.url="${{ github.event.deployment_status.environment_url }}/" --collect.url="${{ github.event.deployment_status.environment_url }}/products/lumen-ui" --collect.url="${{ github.event.deployment_status.environment_url }}/ui-kits"
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}

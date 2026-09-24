@@ -1,0 +1,13 @@
+:root {
+  --spring-snappy-duration: 289ms;
+  --spring-snappy: linear(0, 0.004 1.3%, 0.032 3.8%, 0.109 7.5%, 0.511 21.3%, 0.699 28.7%, 0.816 35%, 0.912 42.5%, 0.945 46.3%, 0.976 51.2%, 1.007 61.3%, 1.015 75%, 1.005 98.8%, 1);
+  --spring-smooth-duration: 282ms;
+  --spring-smooth: linear(0, 0.007 2.5%, 0.026 5%, 0.09 10%, 0.574 36.3%, 0.686 43.8%, 0.789 52.5%, 0.874 62.5%, 0.93 72.5%, 0.969 83.8%, 1);
+  --spring-gentle-duration: 565ms;
+  --spring-gentle: linear(0, 0.015 2.5%, 0.079 6.3%, 0.434 20%, 0.603 27.5%, 0.73 35%, 0.821 42.5%, 0.866 47.5%, 0.9 52.5%, 0.949 63.7%, 0.978 77.5%, 0.995 98.8%, 1);
+}
+@theme inline {
+  --ease-spring-snappy: var(--spring-snappy);
+  --ease-spring-smooth: var(--spring-smooth);
+  --ease-spring-gentle: var(--spring-gentle);
+}

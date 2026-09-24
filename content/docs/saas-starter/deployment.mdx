@@ -1,0 +1,16 @@
+---
+title: Deployment
+description: Deploy SaaS Starter to Vercel with a managed Postgres database.
+product: saas-starter
+since: 2.0.0
+---
+
+1. Push the project to a private Git repository and import it in Vercel.
+2. Add every variable from [Environment variables](/docs/saas-starter/environment) to the Production and Preview environments.
+3. Run migrations from CI with the direct (non-pooled) connection string before promoting a deployment.
+4. Point your billing provider's webhook at `https://your-domain/api/webhooks/billing`.
+
+<Callout>
+  Activate the production project once with `npx lumira@latest activate`; preview deployments do not need their own
+  activation.
+</Callout>
