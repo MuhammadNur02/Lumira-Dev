@@ -5,8 +5,10 @@ const secret = z.string().min(32)
 const isDevelopment = process.env.NODE_ENV === 'development'
 
 /**
- * In `next dev` the Clerk keys may be omitted: Clerk's keyless mode provisions temporary development
- * keys on first run (they land in `.clerk/`, which is git-ignored). Builds always require real keys.
+ * Loosens a schema to optional in development only; builds and production always require the real
+ * value. Kept distinct from a bare `.optional()` so it's obvious at the call site why the rule
+ * differs between dev and prod, and easy to retarget (e.g. if a future Clerk version reintroduces
+ * keyless dev mode, this is the one place to flip back).
  */
 const devOptional = <T extends z.ZodType>(schema: T) => (isDevelopment ? schema.optional() : schema)
 
