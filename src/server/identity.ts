@@ -1,4 +1,5 @@
 import 'server-only'
+import { cache } from 'react'
 import { clerkClient } from '@clerk/nextjs/server'
 import { and, eq, isNull, sql } from 'drizzle-orm'
 import { db } from '@/db/client'
@@ -72,3 +73,28 @@ export async function claimByVerifiedEmail(userId: string, email: string) {
       .where(and(isNull(checkoutSessions.userId), sql`lower(${checkoutSessions.email}) = ${normalized}`))
   })
 }
+
+/**
+ * Lazy Clerk → Postgres mirror for the signed-in user (complements the `user.created` webhook).
+ * The webhook can lag, fail, or, in local development, never arrive (Clerk cannot reach localhost).
+ * Without a row, support requests, the admin guard and email preferences have nothing to join on.
+ * Reads the user from Clerk server-side (authoritative), inserts it as a buyer and claims guest
+ * records for verified addresses, exactly as the webhook would. Deduplicated per request.
+ */
+export const ensureUserRow = cache(async (userId: string): Promise<void> => {
+  const existing = await db.query.users.findFirst({ where: eq(users.id, userId), columns: { id: true } })
+  if (existing) return
+  const clerk = await clerkClient()
+  const user = await clerk.users.getUser(userId).catch(() => null)
+  if (!user) return
+  const primary = user.emailAddresses.find((e) => e.id === user.primaryEmailAddressId) ?? user.emailAddresses[0]
+  if (!primary) return
+  const email = primary.emailAddress.trim().toLowerCase()
+  const name = [user.firstName, user.lastName].filter(Boolean).join(' ') || null
+  // `onConflictDoNothing` without a target also covers the unique email: a row created from a
+  // guest checkout under another id is never overwritten here; the webhook reconciles it.
+  await db.insert(users).values({ id: userId, email, name }).onConflictDoNothing()
+  for (const address of user.emailAddresses) {
+    if (address.verification?.status === 'verified') await claimByVerifiedEmail(userId, address.emailAddress)
+  }
+})

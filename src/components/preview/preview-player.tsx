@@ -22,6 +22,7 @@ import { DeviceFrame } from './device-frame'
 import { computeFrame, DEVICE_KEYS, DEVICE_LABEL, frameAnnouncement, frameLabel, type DeviceKey } from './devices'
 import { PreviewFallback } from './preview-fallback'
 import { PreviewToolbar } from './preview-toolbar'
+import { probeDemo } from './probe'
 import { FAIL_AFTER_MS, reducer, SLOW_AFTER_MS } from './state'
 import type { PlaygroundEntry, PreviewPricing, PreviewProduct } from './types'
 import { useDemoBridge } from './use-demo-bridge'
@@ -78,6 +79,8 @@ export function PreviewPlayer({
   const pageSelectRef = useRef<HTMLButtonElement>(null)
   const openedAt = useRef(0)
   const loadStarted = useRef(0)
+  // Settles when the demo origin answers; created per load (see probe.ts, FR-LP-07).
+  const reachable = useRef<Promise<boolean> | null>(null)
   const { warm } = useLemonCheckout()
 
   const stage = useStageSize(stageRef)
@@ -98,6 +101,7 @@ export function PreviewPlayer({
   // --- analytics: opened once, with where it came from (PRD §8.2) ---------------------------------
   useEffect(() => {
     openedAt.current = performance.now()
+    reachable.current = probeDemo(product.demo.origin, FAIL_AFTER_MS)
     loadStarted.current = performance.now()
     track('preview_opened', { product_slug: product.slug, entry: url.entry ?? 'direct' })
     if (url.entry) void setUrl({ entry: null })
@@ -174,8 +178,9 @@ export function PreviewPlayer({
   // --- actions --------------------------------------------------------------------------------------
   const load = useCallback(() => {
     loadStarted.current = performance.now()
+    reachable.current = probeDemo(product.demo.origin, FAIL_AFTER_MS)
     dispatch({ type: 'load' })
-  }, [])
+  }, [product.demo.origin])
   const changeDevice = useCallback(
     (device: DeviceKey) => {
       if (device === state.device) return
@@ -407,7 +412,12 @@ export function PreviewPlayer({
                   title={`Live preview of ${product.name}`}
                   visible={showing && view === 'preview'}
                   onLoad={() => {
-                    if (iframeRef.current?.src !== 'about:blank') dispatch({ type: 'ready' })
+                    if (iframeRef.current?.src === 'about:blank') return
+                    // `load` also fires for the browser's own error page: trust it only once the
+                    // demo host has answered (see probe.ts). The bridge `ready` bypasses this.
+                    void (reachable.current ?? Promise.resolve(true)).then((ok) =>
+                      dispatch(ok ? { type: 'ready' } : { type: 'fail', reason: 'network' }),
+                    )
                   }}
                   onHide={() => dispatch({ type: 'hide' })}
                   onShow={load}

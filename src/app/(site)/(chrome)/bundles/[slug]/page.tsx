@@ -7,7 +7,7 @@ import { PriceTag } from '@/components/lumira/price-tag'
 import { SectionHeader } from '@/components/lumira/section-header'
 import { ProductCard } from '@/components/lumira/product-card'
 import { PageTransition } from '@/components/motion/page-transition'
-import { formatPrice, TIER_LABEL } from '@/lib/format'
+import { bundleSavings, formatPrice, TIER_LABEL } from '@/lib/format'
 import { getBundle, getBundles } from '@/lib/sanity/fetchers'
 import { buildMetadata } from '@/lib/seo'
 
@@ -31,11 +31,7 @@ export async function generateMetadata({ params }: PageProps<'/bundles/[slug]'>)
 export default async function BundlePage({ params }: PageProps<'/bundles/[slug]'>) {
   const bundle = await getBundle((await params).slug)
   if (!bundle) notFound()
-  const separate = bundle.includes.reduce(
-    (sum, p) => sum + (p.licenses.find((l) => l.tier === bundle.tier)?.priceCents ?? 0),
-    0,
-  )
-  const savings = bundle.priceCents != null && separate > bundle.priceCents ? separate - bundle.priceCents : 0
+  const { separate, savings } = bundleSavings(bundle)
 
   return (
     <PageTransition>

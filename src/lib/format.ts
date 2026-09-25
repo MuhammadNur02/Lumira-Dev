@@ -86,3 +86,20 @@ export const LINE_PATH = { boilerplate: '/boilerplates', ui_kit: '/ui-kits', tem
 export function freshness(latest: { releasedAt: string } | null, createdAt: string, now: Date = new Date()): string {
   return latest ? `Updated ${formatRelative(latest.releasedAt, now)}` : `Added ${formatRelative(createdAt, now)}`
 }
+
+/**
+ * Bundle price versus buying each included asset at the bundle's tier (FR-SF-12). `separate` is 0
+ * when no included asset has a price for that tier; `savings` is 0 unless the bundle is cheaper.
+ */
+export function bundleSavings(bundle: {
+  tier: string
+  priceCents: number | null
+  includes: { licenses: { tier: string; priceCents: number | null }[] }[]
+}): { separate: number; savings: number; percent: number } {
+  const separate = bundle.includes.reduce(
+    (sum, p) => sum + (p.licenses.find((l) => l.tier === bundle.tier)?.priceCents ?? 0),
+    0,
+  )
+  const savings = bundle.priceCents != null && separate > bundle.priceCents ? separate - bundle.priceCents : 0
+  return { separate, savings, percent: separate ? Math.round((savings / separate) * 100) : 0 }
+}

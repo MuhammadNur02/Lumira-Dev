@@ -9,6 +9,7 @@ import { requireUser } from '@/lib/auth'
 import { env } from '@/lib/env'
 import { ratelimit } from '@/lib/rate-limit'
 import { revokeDiscordRole } from '@/server/discord'
+import { ensureUserRow } from '@/server/identity'
 import { enqueueEmail } from '@/server/outbox/enqueue'
 
 /** FR-GS-07: removes the role and deletes the link. */
@@ -40,6 +41,7 @@ export type SupportState = {
 /** FR-GS-08: email support with order and license context; ownership is re-checked when rendering. */
 export async function sendSupportRequest(_prev: SupportState, form: FormData): Promise<SupportState> {
   const { userId } = await requireUser()
+  await ensureUserRow(userId) // the email template joins on the users row
   const parsed = SupportInput.safeParse(Object.fromEntries(form))
   if (!parsed.success) {
     const errors = z.flattenError(parsed.error).fieldErrors

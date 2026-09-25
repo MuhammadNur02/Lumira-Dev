@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import { cookies } from 'next/headers'
+import { auth } from '@clerk/nextjs/server'
 import { FlaskConical, Radio } from 'lucide-react'
 import { AdminCommand } from '@/components/admin/admin-command'
 import { AdminSidebar } from '@/components/admin/admin-sidebar'
@@ -11,6 +12,7 @@ import { Badge } from '@/components/ui/badge'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { requireAdmin } from '@/lib/auth'
 import { env } from '@/lib/env'
+import { ensureUserRow } from '@/server/identity'
 
 export const metadata: Metadata = {
   title: { default: 'Admin', template: '%s · Admin · Lumira' },
@@ -22,6 +24,8 @@ export const metadata: Metadata = {
  * Action: a layout is never the only check. Non-admins get a 404 so /admin is not discoverable.
  */
 export default async function AdminLayout({ children }: LayoutProps<'/admin'>) {
+  const { userId } = await auth()
+  if (userId) await ensureUserRow(userId) // the guard below checks the Postgres role
   await requireAdmin()
   const defaultOpen = (await cookies()).get('sidebar_state')?.value !== 'false'
 

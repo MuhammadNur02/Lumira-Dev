@@ -64,7 +64,15 @@ export function siteCsp(o: CspOptions): string {
     'style-src': ["'self'", "'unsafe-inline'"],
     'img-src': ["'self'", 'data:', 'blob:', SANITY_IMG, CLERK_IMG],
     'font-src': ["'self'"],
-    'connect-src': ["'self'", ...clerkSources(o), 'https://*.api.sanity.io', 'wss://*.api.sanity.io', o.dev && 'ws:'],
+    // Demo origins: the Live Preview reachability probe (components/preview/probe.ts).
+    'connect-src': [
+      "'self'",
+      ...clerkSources(o),
+      'https://*.api.sanity.io',
+      'wss://*.api.sanity.io',
+      `https://*.${o.demoSuffix}`,
+      o.dev && 'ws:',
+    ],
     'media-src': ["'self'", SANITY_IMG],
     'frame-src': [...LEMON, `https://*.${o.demoSuffix}`, TURNSTILE],
     'worker-src': ["'self'", 'blob:'],

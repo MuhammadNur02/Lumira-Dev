@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
+import { auth } from '@clerk/nextjs/server'
 import { AccountNav } from '@/components/lumira/account-nav'
 import { AppHeader } from '@/components/lumira/app-header'
+import { ensureUserRow } from '@/server/identity'
 
 export const metadata: Metadata = {
   title: { default: 'Account', template: '%s · Account · Lumira' },
@@ -8,7 +10,10 @@ export const metadata: Metadata = {
 }
 
 /** Buyer Dashboard shell (P6.05). Pages guard themselves with `requireUser()`; the layout is never the only guard. */
-export default function AccountLayout({ children }: LayoutProps<'/account'>) {
+export default async function AccountLayout({ children }: LayoutProps<'/account'>) {
+  // Mirror the signed-in user if the Clerk webhook has not (yet): see ensureUserRow.
+  const { userId } = await auth()
+  if (userId) await ensureUserRow(userId)
   return (
     <>
       <AppHeader />
