@@ -48,6 +48,7 @@
     "cmdk": "^1.1.1",
     "cn": "^0.4.0",
     "drizzle-orm": "^0.45.3",
+    "framer-motion": "^13.4.2",
     "fumadocs-core": "^16.15.13",
     "fumadocs-mdx": "^15.4.3",
     "fumadocs-ui": "^16.15.13",
