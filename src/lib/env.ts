@@ -17,7 +17,7 @@ export const env = createEnv({
     DATABASE_URL: z.url(),
     DATABASE_URL_DIRECT: z.url().optional(),
     CLERK_SECRET_KEY: devOptional(z.string().startsWith('sk_')),
-    CLERK_WEBHOOK_SIGNING_SECRET: devOptional(z.string().startsWith('whsec_')),
+    CLERK_WEBHOOK_SIGNING_SECRET: z.string().startsWith('whsec_').optional(),
     /**
      * `fixtures` serves the seed catalog from `src/lib/sanity/fixtures.ts` instead of the Content Lake,
      * so the storefront renders before a Sanity project exists. Never allowed in production.
