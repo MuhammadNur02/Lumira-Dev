@@ -14,6 +14,7 @@ import { ThemedImage } from '@/components/lumira/themed-image'
 import { TestimonialTile } from '@/components/lumira/tiles/testimonial-tile'
 import { PageTransition } from '@/components/motion/page-transition'
 import { SlideIn } from '@/components/motion/reveal'
+import { env } from '@/lib/env'
 import { buildMetadata } from '@/lib/seo'
 import { getAllProducts, getChangelog, getHome, getSiteSettings } from '@/lib/sanity/fetchers'
 
