@@ -116,7 +116,13 @@ export default defineConfig([
   {
     // The one place hex equivalents of the tokens may live (emails, OG images, theme-color, LS overlay).
     // chart.tsx targets Recharts' default `stroke='#ccc'` attribute in a selector; it sets no color.
-    files: ['src/lib/brand-hex.ts', 'src/components/ui/chart.tsx', 'scripts/**', 'tests/**'],
+    files: [
+      'src/lib/brand-hex.ts',
+      'src/components/ui/chart.tsx',
+      'src/components/ui/mesh-gradient.tsx',
+      'scripts/**',
+      'tests/**',
+    ],
     rules: { 'lumira/no-color-literals': 'off' },
   },
   {

@@ -136,9 +136,9 @@
   }
 }
 
-/* ---------- Hero glow (SG §4.7): one per section, top-left, never behind body text ---------- */
+/* ---------- Hero glow (SG §4.7): replaced by animated mesh gradient ---------- */
 @utility hero-glow {
-  background-image: radial-gradient(60% 50% at 15% 0%, var(--glow), transparent 70%);
+  background-image: none;
 }
 
 /* ---------- Stage (SG §7.2): Live Preview canvas with a 24 px dot grid ---------- */

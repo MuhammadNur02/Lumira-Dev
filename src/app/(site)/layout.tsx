@@ -11,6 +11,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { brandHex } from '@/lib/brand-hex'
 import { clerkAppearance } from '@/lib/clerk/appearance'
+import { MeshGradientBackground } from '@/components/ui/mesh-gradient'
 import { env } from '@/lib/env'
 import { geistMono, geistSans } from '../fonts'
 import '../globals.css'
@@ -48,6 +49,7 @@ export default function SiteRootLayout({ children, modal }: LayoutProps<'/'>) {
             <NuqsAdapter>
               <MotionProvider>
                 <TooltipProvider>
+                  <MeshGradientBackground />
                   {children}
                   {modal}
                   <Toaster />
