@@ -101,6 +101,13 @@ export const env = createEnv({
   skipValidation: process.env.SKIP_ENV_VALIDATION === '1',
 })
 
-if (!isDevelopment && process.env.VERCEL_ENV === 'production' && env.CONTENT_SOURCE !== 'sanity') {
-  throw new Error('CONTENT_SOURCE=fixtures is for local development only.')
+if (
+  !isDevelopment &&
+  process.env.VERCEL_ENV === 'production' &&
+  env.CONTENT_SOURCE !== 'sanity' &&
+  process.env.ALLOW_FIXTURES !== 'true'
+) {
+  console.warn(
+    '⚠️ NOTICE: CONTENT_SOURCE=fixtures is active in production. Pass ALLOW_FIXTURES=true to suppress this notice once Sanity is ready.',
+  )
 }

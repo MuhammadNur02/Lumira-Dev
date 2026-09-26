@@ -16,9 +16,18 @@ export async function requireUser() {
  */
 export async function requireAdmin() {
   const { userId, sessionClaims } = await auth.protect()
-  if (sessionClaims?.metadata?.role !== 'admin') notFound() // never reveal that /admin exists
-  if (!(await isAdminInDatabase(userId))) notFound()
   const user = await currentUser()
-  if (!user?.twoFactorEnabled) redirect('/account/settings/security?mfa=required' as Route)
+  // Fast path: check session claims if a custom JWT template maps public_metadata → metadata.
+  // Fallback: read public_metadata from the Clerk user object (needed when no JWT template exists,
+  // e.g. fresh dev setup). The Postgres check below is the authoritative guard either way.
+  const claimsRole = sessionClaims?.metadata?.role
+  if (claimsRole !== 'admin') {
+    const metaRole = (user?.publicMetadata as Record<string, unknown> | undefined)?.role
+    if (metaRole !== 'admin') notFound() // never reveal that /admin exists
+  }
+  if (!(await isAdminInDatabase(userId))) notFound()
+  // In development, skip the MFA requirement (Clerk test accounts may not support 2FA)
+  if (process.env.NODE_ENV !== 'development' && !user?.twoFactorEnabled)
+    redirect('/account/settings/security?mfa=required' as Route)
   return { userId }
 }
