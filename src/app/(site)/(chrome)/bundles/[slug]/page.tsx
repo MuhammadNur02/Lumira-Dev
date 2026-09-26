@@ -7,6 +7,7 @@ import { PriceTag } from '@/components/lumira/price-tag'
 import { SectionHeader } from '@/components/lumira/section-header'
 import { ProductCard } from '@/components/lumira/product-card'
 import { PageTransition } from '@/components/motion/page-transition'
+import { SlideIn } from '@/components/motion/reveal'
 import { bundleSavings, formatPrice, TIER_LABEL } from '@/lib/format'
 import { getBundle, getBundles } from '@/lib/sanity/fetchers'
 import { buildMetadata } from '@/lib/seo'
@@ -60,8 +61,8 @@ export default async function BundlePage({ params }: PageProps<'/bundles/[slug]'
       <div className="mx-auto flex max-w-[80rem] flex-col gap-6 px-4 pb-24 sm:px-6 lg:px-8">
         <h2 className="eyebrow">Included</h2>
         <div className="grid gap-(--bento-gap) sm:grid-cols-2 lg:grid-cols-3">
-          {bundle.includes.map((p) => (
-            <div key={p._id} className="flex flex-col gap-2">
+          {bundle.includes.map((p, i) => (
+            <SlideIn key={p._id} index={i} direction="up" className="flex flex-col gap-2">
               <ProductCard product={p} morph={false} />
               <Link
                 href={`/products/${p.slug}/preview?entry=card`}
@@ -70,7 +71,7 @@ export default async function BundlePage({ params }: PageProps<'/bundles/[slug]'
               >
                 <MonitorSmartphone className="size-3.5" aria-hidden /> Live Preview
               </Link>
-            </div>
+            </SlideIn>
           ))}
         </div>
       </div>

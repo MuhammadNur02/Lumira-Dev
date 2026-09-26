@@ -7,11 +7,11 @@ import { PostHogIdentify } from '@/components/analytics/posthog-identify'
 import { UtmCapture } from '@/components/analytics/utm-capture'
 import { MotionProvider } from '@/components/motion/motion-provider'
 import { ThemeProvider } from '@/components/providers/theme-provider'
+import { Particles } from '@/components/lumira/particles'
 import { Toaster } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { brandHex } from '@/lib/brand-hex'
 import { clerkAppearance } from '@/lib/clerk/appearance'
-import { MeshGradientBackground } from '@/components/ui/mesh-gradient'
 import { env } from '@/lib/env'
 import { geistMono, geistSans } from '../fonts'
 import '../globals.css'
@@ -49,7 +49,7 @@ export default function SiteRootLayout({ children, modal }: LayoutProps<'/'>) {
             <NuqsAdapter>
               <MotionProvider>
                 <TooltipProvider>
-                  <MeshGradientBackground />
+                  <Particles quantity={70} className="pointer-events-none fixed inset-0 z-0 h-full w-full opacity-65" />
                   {children}
                   {modal}
                   <Toaster />

@@ -8,7 +8,6 @@ import { MotionProvider } from '@/components/motion/motion-provider'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
-import { MeshGradientBackground } from '@/components/ui/mesh-gradient'
 import { brandHex } from '@/lib/brand-hex'
 import { clerkAppearance } from '@/lib/clerk/appearance'
 import { env } from '@/lib/env'
@@ -43,7 +42,6 @@ export default async function AppRootLayout({ children }: { children: React.Reac
             <NuqsAdapter>
               <MotionProvider>
                 <TooltipProvider>
-                  <MeshGradientBackground />
                   {children}
                   <Toaster />
                 </TooltipProvider>

@@ -27,6 +27,7 @@
   background: var(--card);
   border: 1px solid var(--bento-border);
   box-shadow: var(--bento-shadow);
+  backdrop-filter: blur(16px);
 }
 
 /* Soft top-left ambient light inside the tile */
@@ -40,7 +41,7 @@
     pointer-events: none;
     background: radial-gradient(
       120% 80% at 0% 0%,
-      color-mix(in oklch, var(--foreground) 3%, transparent),
+      color-mix(in oklch, var(--foreground) 6%, transparent),
       transparent 60%
     );
   }
@@ -176,15 +177,15 @@
 .border-beam {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  padding: 1px;
+  z-index: 2;
+  padding: 1.5px;
   border-radius: inherit;
   pointer-events: none;
   background: conic-gradient(
     from var(--beam-angle),
-    transparent 0 70%,
-    color-mix(in oklch, var(--lumen-300) 90%, transparent) 85%,
-    transparent 100%
+    transparent 0 65%,
+    color-mix(in oklch, var(--lumen-300) 95%, transparent) 80%,
+    transparent 95%
   );
   -webkit-mask:
     linear-gradient(#000 0 0) content-box exclude,
@@ -192,11 +193,16 @@
   mask:
     linear-gradient(#000 0 0) content-box exclude,
     linear-gradient(#000 0 0);
-  animation: beam-spin 6s linear infinite;
+  animation: beam-spin 7s linear infinite;
   animation-play-state: var(--beam-state, running);
 }
+.border-beam-glow {
+  filter: drop-shadow(0 0 8px color-mix(in oklch, var(--lumen-400) 85%, transparent))
+    drop-shadow(0 0 18px color-mix(in oklch, var(--lumen-500) 45%, transparent));
+}
 @media (prefers-reduced-motion: reduce) {
-  .border-beam {
+  .border-beam,
+  .border-beam-glow {
     display: none;
   }
 }

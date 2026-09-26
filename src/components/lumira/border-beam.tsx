@@ -1,12 +1,21 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { cn } from '@/lib/utils'
 
 /**
- * Border beam (SG §4.7): the All-Access tile only, one per page. The conic sweep (bento.css) pauses
- * while off-screen and is removed entirely under reduced motion.
+ * Border beam: animated conic edge light that sweeps along the border perimeter.
+ * Pauses when off-screen, disabled under reduced motion.
  */
-export function BorderBeam() {
+export function BorderBeam({
+  className,
+  glow = true,
+  duration = 7,
+}: {
+  className?: string
+  glow?: boolean
+  duration?: number
+}) {
   const ref = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
@@ -19,5 +28,12 @@ export function BorderBeam() {
     return () => io.disconnect()
   }, [])
 
-  return <span ref={ref} aria-hidden className="border-beam" />
+  return (
+    <span
+      ref={ref}
+      aria-hidden
+      className={cn('border-beam', glow && 'border-beam-glow', className)}
+      style={{ animationDuration: `${duration}s` }}
+    />
+  )
 }

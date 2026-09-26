@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
-import { Slot } from 'radix-ui'
 import { cn } from '@/lib/utils'
 
 // Lumira patch (StyleGuide §5.3): 24 px pill, caption type. Status variants pair their subtle
@@ -36,16 +35,27 @@ function Badge({
   className,
   variant,
   asChild = false,
+  children,
   ...props
 }: React.ComponentProps<'span'> & VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot.Root : 'span'
+  if (asChild && React.isValidElement(children)) {
+    const child = children as React.ReactElement<{ className?: string }>
+    return React.cloneElement(child, {
+      'data-slot': 'badge',
+      'data-variant': variant ?? 'neutral',
+      ...props,
+      className: cn(badgeVariants({ variant }), className, child.props?.className),
+    } as React.HTMLAttributes<HTMLElement>)
+  }
   return (
-    <Comp
+    <span
       data-slot="badge"
       data-variant={variant ?? 'neutral'}
       className={cn(badgeVariants({ variant }), className)}
       {...props}
-    />
+    >
+      {children}
+    </span>
   )
 }
 

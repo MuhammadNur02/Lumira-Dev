@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { formatPrice } from '@/lib/format'
 import type { SiteSettings } from '@/lib/sanity/models'
 import { cn } from '@/lib/utils'
+import { SlideIn } from '@/components/motion/reveal'
 import { BorderBeam } from './border-beam'
 
 type Pass = SiteSettings['allAccess']
@@ -54,57 +55,60 @@ export function PlanCards({
 
   return (
     <div className={cn('grid gap-(--bento-gap) md:grid-cols-2', className)}>
-      {plans.map((plan) => {
+      {plans.map((plan, i) => {
         const featured = plan.key === 'yearly'
         return (
-          <article
-            key={plan.key}
-            className={cn(
-              'bento-light bento-surface flex flex-col gap-6 p-6 md:p-8',
-              featured && 'bg-brand text-brand-foreground [--bento-border:var(--bento-border-on-brand)]',
-            )}
-          >
-            {featured ? <BorderBeam /> : null}
-            <div className="flex items-center justify-between">
-              <h3 className="text-heading-4">{plan.title}</h3>
-              {featured && savings && savings > 0 ? (
-                // Inverted pill: brand text on white clears 4.5:1 at 12 px (white on a 15 % tint did not).
-                <span className="rounded-full bg-brand-foreground px-2.5 py-0.5 text-micro text-brand">Best value</span>
-              ) : null}
-            </div>
-            <p className="flex items-baseline gap-1">
-              <span className="text-metric-hero">{formatPrice(plan.price)}</span>
-              <span className={cn('text-caption', featured ? 'text-brand-foreground' : 'text-muted-foreground')}>
-                {plan.interval}
-              </span>
-            </p>
-            <p className={cn('text-body-sm', featured ? 'text-brand-foreground' : 'text-muted-foreground')}>
-              {plan.note}
-            </p>
-            <ul className="grid gap-2 text-body-sm">
-              {(pass?.perks ?? []).map((perk) => (
-                <li key={perk} className="flex items-start gap-2">
-                  <Check className="mt-0.5 size-4 shrink-0" aria-hidden /> {perk}
-                </li>
-              ))}
-              {pass?.activationLimit ? (
-                <li className="flex items-start gap-2">
-                  <Check className="mt-0.5 size-4 shrink-0" aria-hidden /> {pass.activationLimit} activations
-                </li>
-              ) : null}
-            </ul>
-            <div className="mt-auto">
-              {cta ? (
-                cta(plan.key, plan.variantId)
-              ) : (
-                <Button size="lg" variant={featured ? 'secondary' : 'default'} className="w-full" asChild>
-                  <Link href="/all-access" transitionTypes={['nav-forward']}>
-                    Get All-Access
-                  </Link>
-                </Button>
+          <SlideIn key={plan.key} index={i} direction="up" className="h-full">
+            <article
+              className={cn(
+                'bento-light bento-surface flex h-full flex-col gap-6 p-6 md:p-8',
+                featured && 'bg-brand text-brand-foreground [--bento-border:var(--bento-border-on-brand)]',
               )}
-            </div>
-          </article>
+            >
+              {featured ? <BorderBeam /> : null}
+              <div className="flex items-center justify-between">
+                <h3 className="text-heading-4">{plan.title}</h3>
+                {featured && savings && savings > 0 ? (
+                  // Inverted pill: brand text on white clears 4.5:1 at 12 px (white on a 15 % tint did not).
+                  <span className="rounded-full bg-brand-foreground px-2.5 py-0.5 text-micro text-brand">
+                    Best value
+                  </span>
+                ) : null}
+              </div>
+              <p className="flex items-baseline gap-1">
+                <span className="text-metric-hero">{formatPrice(plan.price)}</span>
+                <span className={cn('text-caption', featured ? 'text-brand-foreground' : 'text-muted-foreground')}>
+                  {plan.interval}
+                </span>
+              </p>
+              <p className={cn('text-body-sm', featured ? 'text-brand-foreground' : 'text-muted-foreground')}>
+                {plan.note}
+              </p>
+              <ul className="grid gap-2 text-body-sm">
+                {(pass?.perks ?? []).map((perk) => (
+                  <li key={perk} className="flex items-start gap-2">
+                    <Check className="mt-0.5 size-4 shrink-0" aria-hidden /> {perk}
+                  </li>
+                ))}
+                {pass?.activationLimit ? (
+                  <li className="flex items-start gap-2">
+                    <Check className="mt-0.5 size-4 shrink-0" aria-hidden /> {pass.activationLimit} activations
+                  </li>
+                ) : null}
+              </ul>
+              <div className="mt-auto">
+                {cta ? (
+                  cta(plan.key, plan.variantId)
+                ) : (
+                  <Button size="lg" variant={featured ? 'secondary' : 'default'} className="w-full" asChild>
+                    <Link href="/all-access" transitionTypes={['nav-forward']}>
+                      Get All-Access
+                    </Link>
+                  </Button>
+                )}
+              </div>
+            </article>
+          </SlideIn>
         )
       })}
     </div>

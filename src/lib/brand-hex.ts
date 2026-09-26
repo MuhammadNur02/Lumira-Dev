@@ -18,8 +18,8 @@ export const brandHex = {
     link: '#4643c4', // lumen-700
   },
   dark: {
-    canvas: '#06070a', // graphite-975
-    card: '#0d0e12', // graphite-940
+    canvas: '#000000',
+    card: '#0a0a0c',
     border: '#1f2126',
     text: '#f9fafc',
     muted: '#a1a5ac',

@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from 'react'
 import { Button } from '@/components/ui/button'
+import { SlideIn } from '@/components/motion/reveal'
 import { ProductCard } from '@/components/lumira/product-card'
 import type { ProductCard as Product } from '@/lib/sanity/models'
 import { loadMoreProducts } from './actions'
@@ -16,8 +17,10 @@ export function LoadMore({ filters, initialOffset }: { filters: Filters; initial
 
   return (
     <>
-      {items.map((p) => (
-        <ProductCard key={p._id} product={p} />
+      {items.map((p, i) => (
+        <SlideIn key={p._id} index={i} direction="up" className="h-full">
+          <ProductCard product={p} className="h-full" />
+        </SlideIn>
       ))}
       {next !== null ? (
         <div className="col-span-full flex justify-center pt-4">

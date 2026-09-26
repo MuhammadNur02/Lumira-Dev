@@ -1,5 +1,6 @@
 import type { ProductCard as Product } from '@/lib/sanity/models'
 import { cn } from '@/lib/utils'
+import { SlideIn } from '@/components/motion/reveal'
 import { ProductCard } from './product-card'
 import { Spotlight } from './spotlight'
 
@@ -18,7 +19,9 @@ export function ProductGrid({
   return (
     <div className={cn('relative grid gap-(--bento-gap) sm:grid-cols-2 lg:grid-cols-3', className)}>
       {products.map((p, i) => (
-        <ProductCard key={p._id} product={p} morph={morph} priority={i < priorityCount} />
+        <SlideIn key={p._id} index={i} direction="up" className="h-full">
+          <ProductCard product={p} morph={morph} priority={i < priorityCount} className="h-full" />
+        </SlideIn>
       ))}
       <Spotlight />
     </div>
