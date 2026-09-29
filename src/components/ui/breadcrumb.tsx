@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { cn } from '@/lib/utils'
+import { Slot } from 'radix-ui'
 import { ChevronRightIcon, MoreHorizontalIcon } from 'lucide-react'
 
 function Breadcrumb({ className, ...props }: React.ComponentProps<'nav'>) {
@@ -26,24 +27,14 @@ function BreadcrumbItem({ className, ...props }: React.ComponentProps<'li'>) {
 function BreadcrumbLink({
   asChild,
   className,
-  children,
   ...props
 }: React.ComponentProps<'a'> & {
   asChild?: boolean
 }) {
-  if (asChild && React.isValidElement(children)) {
-    const child = children as React.ReactElement<{ className?: string }>
-    return React.cloneElement(child, {
-      'data-slot': 'breadcrumb-link',
-      ...props,
-      className: cn('transition-colors hover:text-foreground', className, child.props?.className),
-    } as React.HTMLAttributes<HTMLElement>)
-  }
+  const Comp = asChild ? Slot.Root : 'a'
 
   return (
-    <a data-slot="breadcrumb-link" className={cn('transition-colors hover:text-foreground', className)} {...props}>
-      {children}
-    </a>
+    <Comp data-slot="breadcrumb-link" className={cn('transition-colors hover:text-foreground', className)} {...props} />
   )
 }
 

@@ -21,7 +21,7 @@ export const sanityPreview = sanity.withConfig({
   useCdn: false,
   token: env.SANITY_API_READ_TOKEN,
   perspective: 'drafts',
-  stega: { enabled: true, studioUrl: 'https://lumira.sanity.studio' },
+  stega: { enabled: true, studioUrl: env.SANITY_STUDIO_URL },
 })
 
 /** Editor-token client for server-side writes: price sync (P5.02) and the release publish flow (P7.12). */

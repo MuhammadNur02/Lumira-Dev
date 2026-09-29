@@ -1,6 +1,7 @@
 'use client'
 import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
+import { Slot } from 'radix-ui'
 import * as m from 'motion/react-m'
 import { LoaderCircle } from 'lucide-react'
 import { spring } from '@/lib/motion/springs'
@@ -64,25 +65,10 @@ export function Button({
 
   // Links styled as buttons: CSS spring press (generated linear() easing, §6.6). No JS needed.
   if (asChild) {
-    if (React.isValidElement(children)) {
-      const child = children as React.ReactElement<{ className?: string }>
-      return React.cloneElement(child, {
-        'data-slot': 'button',
-        'data-variant': variant ?? 'default',
-        ...props,
-        className: cn(classes, 'pressable', child.props?.className),
-      } as React.HTMLAttributes<HTMLElement>)
-    }
     return (
-      <button
-        data-slot="button"
-        data-variant={variant ?? 'default'}
-        className={cn(classes, 'pressable')}
-        disabled={disabled || loading}
-        {...props}
-      >
+      <Slot.Root data-slot="button" data-variant={variant ?? 'default'} className={cn(classes, 'pressable')} {...props}>
         {children}
-      </button>
+      </Slot.Root>
     )
   }
 

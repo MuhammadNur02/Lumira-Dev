@@ -24,6 +24,24 @@ export function AdminPageHeader({
   )
 }
 
+/**
+ * Route-level loading state for every admin page (each folder's loading.tsx re-exports it). Admin pages
+ * await `requireAdmin()` before rendering, so a boundary inside each segment is what lets navigation
+ * between them paint instantly; a boundary in the parent layout is already revealed and doesn't count.
+ */
+export function AdminPageSkeleton() {
+  return (
+    <div role="status" className="flex flex-col gap-(--bento-gap)">
+      <div aria-hidden className="flex flex-col gap-2">
+        <div className="h-8 w-64 skeleton-shimmer rounded-lg" />
+        <div className="h-4 w-full max-w-[36rem] skeleton-shimmer rounded-md" />
+      </div>
+      <div aria-hidden className="h-96 skeleton-shimmer rounded-3xl" />
+      <span className="sr-only">Loading…</span>
+    </div>
+  )
+}
+
 /** Admin panel: bento surface, title row, body. */
 export function Panel({
   title,

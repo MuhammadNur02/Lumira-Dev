@@ -12,10 +12,27 @@ const isDevelopment = process.env.NODE_ENV === 'development'
  */
 const devOptional = <T extends z.ZodType>(schema: T) => (isDevelopment ? schema.optional() : schema)
 
+/**
+ * `z.url()` alone accepts malformed values such as `postgresql:"//user:pw@host/db"` (a stray quote
+ * turns the authority into a path), which the driver then resolves to localhost and fails with a bare
+ * ECONNREFUSED on every query. Require a real postgres URL with a host so the app fails fast instead.
+ */
+export const isPostgresUrl = (value: string) => {
+  try {
+    const url = new URL(value)
+    return /^postgres(ql)?:$/.test(url.protocol) && url.hostname.length > 0
+  } catch {
+    return false
+  }
+}
+const postgresUrl = z
+  .string()
+  .refine(isPostgresUrl, 'must look like postgresql://user:password@host:port/database (no quotes inside the value)')
+
 export const env = createEnv({
   server: {
-    DATABASE_URL: z.url(),
-    DATABASE_URL_DIRECT: z.url().optional(),
+    DATABASE_URL: postgresUrl,
+    DATABASE_URL_DIRECT: postgresUrl.optional(),
     CLERK_SECRET_KEY: devOptional(z.string().startsWith('sk_')),
     CLERK_WEBHOOK_SIGNING_SECRET: z.string().startsWith('whsec_').optional(),
     /**

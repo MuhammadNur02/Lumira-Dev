@@ -6,6 +6,10 @@ import { SuccessView } from './success-view'
 
 export const metadata = { title: 'Order confirmed' }
 
+// Only ever reached by Lemon Squeezy's full-page redirect, never an in-app navigation, so blocking on
+// `searchParams` costs nothing; opting out keeps instant-navigation validation quiet for this page.
+export const instant = false
+
 /**
  * Lemon Squeezy redirects here with `?cs=<checkout session>` (FR-CO-06). Everything order-specific
  * is fetched client-side from `/api/checkout/status`, which is the only place allowed to set the
